@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Sam-Layers
+
+Transform: 
+- AWS::Serverless-2016-10-31
+
+Resources:
+
+  AwsLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: AWS-Layer 
+      Description: Layer that contains AWS modules
+      ContentUri: ./aws-layer
+      CompatibleRuntimes:
+        - nodejs16.x
+
+  DatabaseLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: Database-Layer 
+      Description: Layer that contains Database modules
+      ContentUri: ./database-layer
+      CompatibleRuntimes:
+        - nodejs16.x
+
+  UtilLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: Util-Layer 
+      Description: Layer that contains Util modules
+      ContentUri: ./util-layer
+      CompatibleRuntimes:
+        - nodejs16.x
+
+
+Outputs:
+  AwsLayerOutput:
+    Description: "AWS layer"
+    Value: !Ref AwsLayer
+  DatabaseLayerOutput:
+    Description: "Database layer"
+    Value: !Ref DatabaseLayer
+  UtilLayerOutput:
+    Description: "Util layer"
+    Value: !Ref UtilLayer

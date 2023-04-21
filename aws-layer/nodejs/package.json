@@ -1,0 +1,12 @@
+{
+  "name": "aws-layer",
+  "version": "1.0.0",
+  "description": "AWS Modules",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.282.0"
+  }
+}

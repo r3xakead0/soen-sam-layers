@@ -1,0 +1,17 @@
+{
+  "name": "util-layer",
+  "version": "1.0.0",
+  "description": "Util Modules",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "argon2": "^0.28.7",
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
+    "joi": "^17.6.0",
+    "nodemailer": "^6.9.1",
+    "uuid": "^9.0.0"
+  }
+}

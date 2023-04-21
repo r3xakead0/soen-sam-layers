@@ -1,0 +1,56 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  deploy-aws:
+    name: Deploy on AWS
+    runs-on: ubuntu-latest
+    environment: testing
+    
+    steps:
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Use Node.js 16.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
+
+    - name: Install dependencies of AWS
+      working-directory: aws-layer/nodejs
+      run: npm ci
+
+    - name: Install dependencies of Database
+      working-directory: database-layer/nodejs
+      run: npm ci
+
+    - name: Install dependencies of Util
+      working-directory: util-layer/nodejs
+      run: npm ci
+
+    - name: Validate
+      run: sam validate
+
+    - name: Build
+      run: sam build
+
+    - name: Preserve build artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-artifact
+        path: .aws-sam
+
+    - name: Deploy
+      run: |
+        sam deploy --stack-name Sam-Layers
